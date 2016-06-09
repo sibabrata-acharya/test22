@@ -83,10 +83,6 @@ app.listen(port);
 module.exports = app;
 
 //Initiate provider configuration and routes.
-var facebook = require('./facebook');
-new facebook(app);
-var google = require('./google');
-new google(app);
 var otp = require('./otp.js');
 var otpObj = new otp();
 otpObj.generateOtp(app);
