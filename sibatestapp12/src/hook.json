@@ -14,7 +14,7 @@
     }
   },
   "sendgrid": {
-    "channel": "twilio",
+    "channel": "sendgrid",
     "otp": {
       "otpLength": 7,
       "otpType": "numeric",

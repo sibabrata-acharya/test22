@@ -126,3 +126,15 @@ Terminates an existing login session and redirects to the callback URL
        2. Modify ajax call URL in account_With_PostHook.jade to use either sendgrid or twilio. /generateOTPWithTwilio to use twilio and /generateOTPWithSendGrid to use sendgrid (url: '/generateOTPWithTwilio' or url: '/generateOTPWithTwilio')
        3. Modify src/hook.json for twilio and sendgrid details
       ```
+## POST /saveLog
+- This API saves logs to Graylog server or MongoDB based on the user choice.
+
+### Request
+| HTTP       |                             Value                                                          |
+|------------|--------------------------------------------------------------------------------------------|
+| Body       | {"level":"INFO","message":"Info message", "appid":"OneC"} |
+
+### Response
+| HTTP       |  Value                                      |
+|------------|---------------------------------------------|
+| Body       | {"status":"success", "message":"Successfully sent to Graylog server"}|
