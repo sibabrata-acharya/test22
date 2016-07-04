@@ -1,6 +1,6 @@
-# Node JS template application for OAuth2.0 authentication.
+# Node JS template application for OAuth
 
-## Developer can leverage this template application code, modify according to their business functionality and can push to PaaS platform.
+This is a sample application where the developer can start building the application using the OAuth microservice. This application provides a sample user interface, implementation of the login and the data hooks configured in the UI. The developer can modify the UI and add the required business functionality and can push and restage the application into target PaaS platform.  The OAuth microservice expose API end points methods where the developer can login, logout, send and validate the OTP using Twilio or Sendgrid
 
 ### Template application files
 
