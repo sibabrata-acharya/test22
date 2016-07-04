@@ -123,18 +123,45 @@ Terminates an existing login session and redirects to the callback URL
 | Body       | {"status":"OTP is validated successfully"}  |
 
 
+
 ## POST /saveLog
-- This API saves logs to Graylog server or MongoDB based on the user choice.
+- This API saves applications logs to Graylog server.
 
 ### Request
 | HTTP       |                             Value                                                          |
 |------------|--------------------------------------------------------------------------------------------|
-| Body       | {"level":"INFO","message":"Info message", "appid":"OneC"} |
+| Body       | {"level":"INFO","message":"Info message", "appid":"OneC", "priority":"low"} |
 
 ### Response
 | HTTP       |  Value                                      |
 |------------|---------------------------------------------|
 | Body       | {"status":"success", "message":"Successfully sent to Graylog server"}|
+
+## POST /saveToMongo
+- This API saves application logs to Mongodb server.
+
+### Request
+| HTTP       |                             Value                                                          |
+|------------|--------------------------------------------------------------------------------------------|
+| Body       | {"level":"INFO","message":"Info message", "appid":"OneC", "priority":"low"} |
+
+### Response
+| HTTP       |  Value                                      |
+|------------|---------------------------------------------|
+| Body       | {"status":"success", "message":"Successfully sent to Mongodb server"}|
+
+## POST /searchLog
+- This API used to search logs from MongoDB, based on the user provided filters.
+
+### Request
+| HTTP       |                             Value                                                          |
+|------------|--------------------------------------------------------------------------------------------|
+| Body       | {"level":"INFO", "appid":"OneC", "priority":"low"} |
+
+### Response
+| HTTP       |  Value                                      |
+|------------|---------------------------------------------|
+| Body       | [{"_id": "57764a04d5613aa7a0dd8b31", "datetime": "2016-07-01T10:46:28.000Z", "priority": "LOW", "level": "INFO", "msg": "Info message", "appid": "ONEC", "__v": 0}] |
 
 
 ## Sample UI for testing pre-hook and post-hook
