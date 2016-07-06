@@ -39,13 +39,13 @@ app.get('/login', function(req, res){
 //  This API is called from index.jade with the query parameter as provider.
 //  Later it will call the authentication service with query parameter as callbackUrl
 app.get('/OAuth', function(req, res){
-    //Reading VCAP information for AuthService base URL
+    //Reading VCAP information for AuthenticationService base URL
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/";
+    var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl+"/";
 
     var provider = req.query.provider;
 
-    //Calling /facebook|/twitter|/google|/linkedin service of AuthService
+    //Calling /facebook|/twitter|/google|/linkedin service of AuthenticationService
     var baseUrl = serviceUrl+provider+"?callbackUrl="+callbackUrl;
     res.redirect(baseUrl);
 });
@@ -58,8 +58,8 @@ app.get('/callback', function(req, res){
     if(req.query.code){
         
         var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-        var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/account";
-        var apiKey = services_vcap.AuthService[0].credentials.apiKey;
+        var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl+"/account";
+        var apiKey = services_vcap.AuthenticationService[0].credentials.apiKey;
         var body = {
             code : req.query.code,
             apiKey : apiKey
@@ -90,11 +90,11 @@ app.get('/callback', function(req, res){
 // GET /logout
 //  Terminates an existing login session and redirects to the callbackUrl
 app.get('/logout', function(req, res){
-    //Reading VCAP information for AuthService base URL
+    //Reading VCAP information for AuthenticationService base URL
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl;
+    var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl;
 
-    //Calling /logout service of AuthService
+    //Calling /logout service of AuthenticationService
     res.redirect(serviceUrl+"/logout?callbackUrl="+callbackUrl);
 });
 
@@ -105,7 +105,7 @@ app.get('/logout', function(req, res){
 //  Edit hook.json for prehook and posthook templates as values index_With_PreHook and account_With_PostHook
 app.post("/generateOTPWithTwilio", function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/generate";
+    var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl+"/generate";
     request({
         url: serviceUrl, //URL to hit
         method: 'POST',
@@ -130,7 +130,7 @@ app.post("/generateOTPWithTwilio", function(req, res){
 //  Edit hook.json for prehook and posthook templates as values index_With_PreHook and account_With_PostHook
 app.post("/generateOTPWithSendGrid", function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/generate";
+    var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl+"/generate";
     request({
         url: serviceUrl, //URL to hit
         method: 'POST',
@@ -153,7 +153,7 @@ app.post("/generateOTPWithSendGrid", function(req, res){
 //  For UI sample this method is called from index_With_PreHook.jade and account_With_PostHook.jade files.
 app.post("/validateOTP", function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/validate";
+    var serviceUrl = services_vcap.AuthenticationService[0].credentials.serviceUrl+"/validate";
     request({
         url: serviceUrl, //URL to hit
         method: 'POST',
